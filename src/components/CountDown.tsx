@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-const FOCUS_TIME = 25 * 60;
-const BREAK_TIME = 5 * 60;
+const FOCUS_TIME = 25 * 1;
+const BREAK_TIME = 5 * 1;
 
 function formatTime(totalSeconds: number) {
   const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
