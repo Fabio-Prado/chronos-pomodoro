@@ -17,23 +17,24 @@ export function CountDown() {
   const isFocus = cycles % 2 === 0;
   const currentDuration = isFocus ? FOCUS_TIME : BREAK_TIME;
 
-  // Faz o tempo descer 1 segundo por vez enquanto estiver rodando
   useEffect(() => {
     if (!isRunning) return;
-    const id = setInterval(() => {
-      setSecondsLeft(prev => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(id);
-  }, [isRunning]);
 
-  // Quando o tempo chega a zero: para, soma um ciclo e carrega o próximo tempo
-  useEffect(() => {
-    if (secondsLeft !== 0) return;
-    const nextCycles = cycles + 1;
-    setIsRunning(false);
-    setCycles(nextCycles);
-    setSecondsLeft(nextCycles % 2 === 0 ? FOCUS_TIME : BREAK_TIME);
-  }, [secondsLeft, cycles]);
+    const id = setTimeout(() => {
+      if (secondsLeft > 0) {
+        setSecondsLeft(secondsLeft - 1);
+        return;
+      }
+
+      // Chegou a zero: para, soma um ciclo e carrega o próximo tempo
+      const nextCycles = cycles + 1;
+      setIsRunning(false);
+      setCycles(nextCycles);
+      setSecondsLeft(nextCycles % 2 === 0 ? FOCUS_TIME : BREAK_TIME);
+    }, 1000);
+
+    return () => clearTimeout(id);
+  }, [isRunning, secondsLeft, cycles]);
 
   function handleReset() {
     setIsRunning(false);

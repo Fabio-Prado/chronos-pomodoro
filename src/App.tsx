@@ -1,5 +1,5 @@
 import { Heading } from './components/Heading.tsx';
-import { CountDown } from './components/CountDown.tsx/index.ts';
+import { CountDown } from './components/CountDown';
 
 export default function App() {
   return (
